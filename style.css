@@ -1,0 +1,704 @@
+/* Reset and Base Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+    font-size: 16px; /* Base font size */
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    color: #555555; /* Slightly softer dark gray */
+    background-color: #FFFFFF; /* White background */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-weight: 700; /* Bold for headings */
+    color: #333333;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: #A0D8EF; /* Main color for section titles */
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+/* Add a subtle underline/decoration to section titles */
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #FFB6C1; /* Accent pink */
+    border-radius: 2px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 0.8rem;
+}
+
+h4 {
+    font-size: 1.2rem;
+    color: #A0D8EF; /* Main color */
+    margin-bottom: 0.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: #A0D8EF; /* Main color for links */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #FFB6C1; /* Accent pink on hover */
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Utility Classes */
+.alt-bg {
+    background-color: #F0F8FF; /* Very light blue/almost white */
+    /* Or use a subtle pattern */
+    /* background-image: url('images/dot-pattern.png'); */
+    /* background-repeat: repeat; */
+}
+
+/* Header and Navigation */
+#header {
+    position: fixed; /* Fixed header */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+#header.scrolled {
+    background-color: rgba(173, 216, 230, 0.95); /* Light blue when scrolled */
+}
+
+#header.scrolled .logo,
+#header.scrolled .nav-links a {
+    color: #fff;
+}
+#header.scrolled .nav-links a:hover {
+    color: #FFFACD; /* Accent yellow on hover when scrolled */
+}
+#header.scrolled .burger div {
+     background-color: #fff;
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.8rem 2rem;
+}
+
+.logo {
+    font-family: 'Yusei Magic', cursive; /* Cute font for logo */
+    font-size: 1.8rem;
+    color: #A0D8EF; /* Main color */
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+}
+
+.nav-links li {
+    list-style: none;
+}
+
+.nav-links a {
+    color: #555555;
+    text-decoration: none;
+    font-weight: 500; /* Slightly bolder nav links */
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%;
+    height: 2px;
+    background-color: #FFB6C1; /* Accent pink */
+    transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.nav-links a.active {
+    color: #A0D8EF; /* Highlight active link */
+}
+
+.burger {
+    display: none; /* Hidden by default */
+    cursor: pointer;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: #555555;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Main Content Sections */
+main {
+    padding-top: 80px; /* Adjust based on header height */
+}
+
+.content-section {
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    opacity: 0; /* Initially hidden for fade-in */
+    transform: translateY(20px); /* Start slightly lower */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.content-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* 1. Hero Section */
+.hero {
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #BCE2F0 0%, #A0D8EF 100%); /* Gradient background */
+    color: #fff;
+    padding: 100px 20px 40px; /* Add padding */
+    position: relative;
+    overflow: hidden; /* For decorations */
+}
+
+.hero::before, .hero::after { /* Simple star decorations */
+    content: '⭐';
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.5;
+    animation: sparkle 5s infinite ease-in-out;
+}
+
+.hero::before { top: 15%; left: 10%; animation-delay: 0s; }
+.hero::after { bottom: 20%; right: 15%; font-size: 1.5rem; animation-delay: 1s; }
+
+@keyframes sparkle {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+
+.hero-content {
+    z-index: 1; /* Ensure content is above decorations */
+}
+
+.avatar-main {
+    width: 200px; /* Adjust size as needed */
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #f8f8f8;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #FFB6C1; /* Accent pink */
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 30px; /* Rounded button */
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+    background-color: #FFA0AC; /* Darker pink on hover */
+    transform: translateY(-2px);
+    color: #fff;
+}
+
+.cta-button i { /* Icon spacing */
+    margin-right: 8px;
+}
+
+.hero-decoration { /* Example decoration */
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-size: 3rem;
+    opacity: 0.7;
+    transform: rotate(-15deg);
+}
+
+/* 2. About Section */
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 3rem; /* Space between image and text */
+}
+
+.avatar-profile {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid #A0D8EF; /* Main color border */
+    flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+.about-text ul {
+    list-style: none; /* Remove default bullets */
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+.about-text li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 25px; /* Space for custom bullet */
+}
+
+.about-text li::before { /* Custom bullet point */
+    content: '💖'; /* Heart icon */
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #FFB6C1; /* Accent pink */
+    font-size: 1rem;
+}
+
+.comment {
+    font-style: italic;
+    color: #777;
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #A0D8EF;
+}
+
+/* 3. Stream Section */
+.stream-content {
+    text-align: center;
+}
+
+.twitch-embed, .calendar-embed, .google-form-embed {
+    background-color: #e0f2f7; /* Light blue placeholder background */
+    border: 1px dashed #A0D8EF;
+    padding: 40px 20px;
+    margin: 2rem auto;
+    max-width: 800px; /* Limit width */
+    min-height: 200px; /* Minimum height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.twitch-embed p, .calendar-embed p, .google-form-embed p {
+    color: #777;
+    font-style: italic;
+}
+
+.schedule h3 {
+    margin-top: 2rem;
+}
+
+.youtube-button {
+    margin-top: 2rem;
+    background-color: #FF0000; /* YouTube red */
+}
+.youtube-button:hover {
+    background-color: #cc0000;
+}
+
+/* 4. Worlds Section */
+.world-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.world-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(160, 216, 239, 0.2); /* Soft blue shadow */
+    overflow: hidden; /* Ensure image fits */
+    text-align: center;
+    padding-bottom: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.world-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(160, 216, 239, 0.3);
+}
+
+.world-card img {
+    width: 100%;
+    height: 180px; /* Fixed height for consistency */
+    object-fit: cover; /* Cover the area */
+    margin-bottom: 1rem;
+}
+
+.world-card h3 {
+    font-size: 1.3rem;
+    color: #A0D8EF; /* Main color */
+    margin-bottom: 0.5rem;
+}
+
+.world-card p {
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.world-button {
+    background-color: #87CEEB; /* Sky blue */
+    font-size: 1rem;
+    padding: 10px 20px;
+}
+.world-button:hover {
+    background-color: #76bfe0;
+}
+
+.worlds-note {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+    margin-top: 2rem;
+}
+
+/* 5. News Section */
+.news-list {
+    list-style: none;
+    padding-left: 0;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+}
+
+.news-list li {
+    background-color: #fff;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border-left: 5px solid #FFB6C1; /* Accent pink border */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+}
+
+.news-list .date {
+    font-weight: bold;
+    color: #A0D8EF; /* Main color */
+    margin-right: 1rem;
+    white-space: nowrap; /* Prevent date wrapping */
+}
+
+.note-button {
+    background-color: #4CAF50; /* Green for note */
+    display: block; /* Make it block to center */
+    width: fit-content; /* Fit content width */
+    margin: 0 auto; /* Center the button */
+}
+.note-button:hover {
+    background-color: #45a049;
+}
+
+/* 6. Links Section */
+.link-buttons {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap */
+    justify-content: center;
+    gap: 1rem;
+}
+
+.link-buttons li a {
+    display: inline-flex; /* Use flex for icon alignment */
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background-color: #fff;
+    color: #555;
+    border: 2px solid #A0D8EF; /* Main color border */
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.link-buttons li a:hover {
+    background-color: #A0D8EF; /* Main color background on hover */
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.link-buttons li a i {
+    margin-right: 8px;
+    font-size: 1.2em; /* Slightly larger icons */
+    width: 20px; /* Fixed width for alignment */
+    text-align: center;
+}
+
+/* Specific Icon Colors (Optional) */
+.link-buttons .fa-twitch { color: #6441a5; }
+.link-buttons .fa-youtube { color: #FF0000; }
+.link-buttons .fa-book { color: #4CAF50; } /* Note */
+.link-buttons .fa-gifts { color: #d9534f; } /* BOOTH */
+.link-buttons .fa-amazon { color: #FF9900; }
+.link-buttons .fa-vr-cardboard { color: #1da1f2; } /* VRChat (using Twitter blue as placeholder) */
+
+.link-buttons li a:hover i {
+    color: #fff; /* Icon color matches text on hover */
+}
+
+
+/* 7. Contact Section */
+#contact p {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.google-form-embed {
+    min-height: 400px; /* Adjust height for form */
+}
+
+/* Footer */
+#footer {
+    background-color: #A0D8EF; /* Main color background */
+    color: #fff;
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: 40px; /* Space above footer */
+    position: relative;
+}
+
+#footer::before { /* Simple wave decoration */
+    content: '';
+    position: absolute;
+    top: -20px; /* Position above the footer */
+    left: 0;
+    width: 100%;
+    height: 40px; /* Height of the wave */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' style='fill:%23A0D8EF;'%3E%3C/path%3E%3C/svg%3E");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.footer-links {
+    margin-bottom: 1rem;
+}
+
+.footer-links a {
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #FFFACD; /* Accent yellow */
+}
+
+#footer p {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    html {
+        font-size: 15px; /* Slightly smaller base font on smaller screens */
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .nav-links {
+        position: absolute;
+        right: 0px;
+        height: 92vh;
+        top: 8vh; /* Position below header */
+        background-color: rgba(160, 216, 239, 0.98); /* Main color, slightly transparent */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 60%;
+        transform: translateX(100%); /* Hide off-screen */
+        transition: transform 0.5s ease-in;
+        padding-top: 2rem;
+    }
+
+    .nav-links li {
+        opacity: 0; /* Initially hidden for animation */
+        margin-bottom: 1rem;
+    }
+
+    .nav-links a {
+        color: #fff; /* White links in mobile menu */
+        font-size: 1.1rem;
+    }
+     .nav-links a:hover, .nav-links a.active {
+        color: #FFFACD; /* Accent yellow */
+    }
+    .nav-links a::after { /* Adjust underline for mobile */
+         background-color: #FFFACD;
+         width: 50%;
+    }
+
+
+    .burger {
+        display: block; /* Show burger icon */
+    }
+
+    .nav-active {
+        transform: translateX(0%); /* Slide in */
+    }
+
+    /* Burger Animation */
+    .toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .toggle .line2 {
+        opacity: 0;
+    }
+    .toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* Animation for nav links appearing */
+    @keyframes navLinkFade {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    }
+
+    .about-content {
+        flex-direction: column; /* Stack image and text */
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .avatar-profile {
+        margin-bottom: 1rem;
+    }
+
+    .stream-content {
+        padding: 0 10px; /* Reduce padding */
+    }
+    .twitch-embed, .calendar-embed, .google-form-embed {
+        padding: 20px 10px;
+    }
+
+    .world-cards {
+        grid-template-columns: 1fr; /* Single column */
+        gap: 1.5rem;
+    }
+
+    .news-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .news-list .date {
+        margin-right: 0;
+        margin-bottom: 0.3rem;
+    }
+
+    .link-buttons {
+        gap: 0.8rem;
+    }
+    .link-buttons li a {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
