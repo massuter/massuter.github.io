@@ -105,4 +105,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Initialize Functions ---
     navSlide();
 
+    // --- Theme Toggle (Dark Mode) ---
+    const themeToggle = document.getElementById('checkbox');
+    const body = document.body;
+    const currentTheme = localStorage.getItem('theme');
+
+    // Apply saved theme on load
+    if (currentTheme === 'dark') {
+        body.classList.add('dark-mode');
+        themeToggle.checked = true;
+    }
+
+    // Toggle theme on checkbox change
+    themeToggle.addEventListener('change', () => {
+        if (themeToggle.checked) {
+            body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark'); // Save preference
+        } else {
+            body.classList.remove('dark-mode');
+            localStorage.setItem('theme', 'light'); // Save preference
+        }
+    });
+
 });
