@@ -92,7 +92,7 @@ a:hover, a:focus {
     border: 2px solid transparent; /* Base border */
     cursor: pointer;
     text-align: center;
-    color: #333333; /* 変更: デフォルト色を黒に設定 */
+    color: #555; /* 変更: デフォルト色を黒に設定 */
 }
 
 .button i {
@@ -104,7 +104,7 @@ a:hover, a:focus {
     transform: translateY(-3px);
     filter: brightness(1.1); /* Slightly brighten on hover */
     text-decoration: none; /* Ensure no underline on hover */
-    color: #333333; /* 変更: ホバー時もデフォルト色を維持 */
+    color: #555; /* 変更: ホバー時もデフォルト色を維持 */
 }
 
 /* 明示的に白色が必要なボタンに色を追加 */
