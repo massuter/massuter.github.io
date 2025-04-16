@@ -552,7 +552,7 @@ nav {
 /* Specific link button colors */
 /* Base styles are now in .button */
 .link-button.twitch { background-color: #9146FF; border-color: #9146FF; }
-.link-button.twitter { background-color: #000000; border-color: #000000; } /* X（旧Twitter）用の黒色スタイル */
+.link-button.twitter { background-color: #1DA1F2; border-color: #1DA1F2; } /* X（旧Twitter）用の水色スタイル */
 .link-button.youtube { background-color: #FF0000; border-color: #FF0000; }
 .link-button.vrchat { background-color: #1f9bfd; border-color: #1f9bfd; } /* Example color */
 .link-button.note { background-color: #41c9b4; border-color: #41c9b4; }
