@@ -95,13 +95,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Theme Toggle (Dark Mode) ---
     const themeToggle = document.getElementById('checkbox');
     const body = document.body;
-    const currentTheme = localStorage.getItem('theme');
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
-    // Apply saved theme on load
-    if (currentTheme === 'dark') {
-        body.classList.add('dark-mode');
-        themeToggle.checked = true;
+    // Apply theme on load: saved preference > browser/OS preference
+    const applyTheme = (isDark) => {
+        if (isDark) {
+            body.classList.add('dark-mode');
+            themeToggle.checked = true;
+        } else {
+            body.classList.remove('dark-mode');
+            themeToggle.checked = false;
+        }
+    };
+
+    // Check saved preference first, otherwise follow browser/OS setting
+    if (savedTheme) {
+        applyTheme(savedTheme === 'dark');
+    } else {
+        applyTheme(prefersDark.matches);
     }
+
+    // Listen for browser/OS theme changes (only if user hasn't set a preference)
+    prefersDark.addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            applyTheme(e.matches);
+        }
+    });
 
     // Toggle theme on checkbox change
     themeToggle.addEventListener('change', () => {
