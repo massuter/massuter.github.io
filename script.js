@@ -12,15 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Toggle Nav
             navLinksContainer.classList.toggle('nav-active');
 
-            // Animate Links (Staggered fade-in)
-            document.querySelectorAll('.nav-links li').forEach((link, index) => {
-                if (link.style.animation) {
-                    link.style.animation = ''; // Reset animation
-                } else {
-                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-                }
-            });
-
             // Burger Animation
             burger.classList.toggle('toggle');
         });
@@ -32,10 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (navLinksContainer.classList.contains('nav-active')) {
                 navLinksContainer.classList.remove('nav-active');
                 burger.classList.remove('toggle');
-                // Reset link animations immediately
-                 document.querySelectorAll('.nav-links li').forEach(li => {
-                    li.style.animation = '';
-                 });
             }
         });
     });

@@ -645,28 +645,32 @@ nav {
 
     .nav-links {
         position: fixed;
-        right: -100%; /* Start off-screen */
+        right: 0;
         top: 70px; /* Below header */
         height: calc(100vh - 70px);
-        width: 60%;
+        width: 160px;
         background-color: rgba(255, 255, 255, 0.98);
         flex-direction: column;
         align-items: center;
         justify-content: flex-start; /* Align items to top */
-        padding-top: 3rem;
-        transition: transform 0.5s ease-in-out;
+        padding: 2rem 1rem;
+        transform: translateX(100%); /* Start off-screen to the right */
+        transition: transform 0.4s ease-in-out;
         box-shadow: -2px 0 5px rgba(0,0,0,0.1);
     }
 
     .nav-links.nav-active {
-        transform: translateX(-100%); /* Slide in */
-        right: 0; /* Ensure it's positioned correctly */
+        transform: translateX(0); /* Slide in from right */
     }
 
     .nav-links li {
         margin-left: 0;
-        margin-bottom: 2rem; /* Space out mobile links */
-        opacity: 0; /* Start hidden for animation */
+        margin-bottom: 1.5rem; /* Space out mobile links */
+        opacity: 1; /* Always visible, rely on menu slide */
+    }
+    
+    .nav-links li:last-child {
+        margin-bottom: 0;
     }
 
     .nav-links li a {
@@ -692,18 +696,6 @@ nav {
     }
     .toggle .line3 {
         transform: rotate(45deg) translate(-5px, -6px);
-    }
-
-    /* Animation for mobile nav links */
-    @keyframes navLinkFade {
-        from {
-            opacity: 0;
-            transform: translateX(50px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0px);
-        }
     }
 
     .hero { min-height: 80vh; } /* Slightly less height on mobile */
@@ -762,7 +754,7 @@ body.dark-mode .burger div {
     body.dark-mode .nav-links li a {
         color: #ecf0f1; /* Light text for mobile nav links */
     }
-     body.dark-mode .nav-links li a.active {
+    body.dark-mode .nav-links li a.active {
         color: #82c4e0; /* Lighter blue */
     }
 }
