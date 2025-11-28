@@ -583,7 +583,8 @@ nav {
 }
 
 .google-form-embed {
-    max-width: 800px;
+    max-width: 960px;
+    width: 100%;
     margin: 0 auto;
     /* Style the placeholder div if needed */
 }
@@ -591,6 +592,11 @@ nav {
 #google-form-placeholder iframe {
     width: 100%;
     min-height: 500px; /* Adjust as needed */
+    border: none;
+}
+
+.contact-form-frame {
+    width: 100%;
     border: none;
 }
 
