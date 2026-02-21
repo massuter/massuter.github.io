@@ -1,3 +1,5 @@
+document.documentElement.classList.add('js-ready');
+
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.getElementById('header');
     const navLinksContainer = document.querySelector('.nav-links');
@@ -7,25 +9,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentYearSpan = document.getElementById('current-year');
 
     // --- Mobile Navigation (Burger Menu) ---
-    const navSlide = () => {
-        burger.addEventListener('click', () => {
-            // Toggle Nav
-            navLinksContainer.classList.toggle('nav-active');
+    const syncNavAccessibilityState = () => {
+        if (!navLinksContainer || !burger) return;
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        const isOpen = navLinksContainer.classList.contains('nav-active');
+        burger.setAttribute('aria-expanded', String(isOpen));
+        burger.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+        navLinksContainer.setAttribute('aria-hidden', String(isMobile && !isOpen));
+        navLinks.forEach(link => {
+            link.tabIndex = isMobile && !isOpen ? -1 : 0;
+        });
+    };
 
-            // Burger Animation
-            burger.classList.toggle('toggle');
+    const setMenuState = (isOpen) => {
+        if (!navLinksContainer || !burger) return;
+        navLinksContainer.classList.toggle('nav-active', isOpen);
+        burger.classList.toggle('toggle', isOpen);
+        syncNavAccessibilityState();
+    };
+
+    const navSlide = () => {
+        if (!burger || !navLinksContainer) return;
+        burger.addEventListener('click', () => {
+            setMenuState(!navLinksContainer.classList.contains('nav-active'));
         });
     };
 
     // Close mobile menu when a link is clicked
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            if (navLinksContainer.classList.contains('nav-active')) {
-                navLinksContainer.classList.remove('nav-active');
-                burger.classList.remove('toggle');
+            if (navLinksContainer && navLinksContainer.classList.contains('nav-active')) {
+                setMenuState(false);
             }
         });
     });
+
+    document.addEventListener('keydown', (event) => {
+        const menuIsOpen = navLinksContainer && navLinksContainer.classList.contains('nav-active');
+        if (event.key === 'Escape' && menuIsOpen) {
+            setMenuState(false);
+            if (burger) {
+                burger.focus();
+            }
+        }
+    });
+
+    window.addEventListener('resize', syncNavAccessibilityState);
 
 
     // --- Scroll Animations (Fade-in Sections) ---
@@ -35,26 +64,46 @@ document.addEventListener('DOMContentLoaded', () => {
         // rootMargin: "-100px 0px -100px 0px" // Adjust trigger point if needed
     };
 
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                // Optional: Unobserve after animation to save resources
-                // observer.unobserve(entry.target);
-            } else {
-                 // Optional: Remove 'visible' class if you want the animation to repeat when scrolling back up
-                 // entry.target.classList.remove('visible');
+    const primeVisibleSections = () => {
+        const headerHeight = header ? header.offsetHeight : 0;
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const isInInitialViewport =
+                rect.top <= window.innerHeight - headerHeight && rect.bottom > headerHeight;
+            if (isInInitialViewport) {
+                section.classList.add('visible');
             }
         });
-    }, sectionObserverOptions);
+    };
 
     sections.forEach(section => {
-        sectionObserver.observe(section);
+        section.classList.add('reveal-on-scroll');
     });
+
+    if ('IntersectionObserver' in window) {
+        primeVisibleSections();
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, sectionObserverOptions);
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+    } else {
+        // Fallback for older browsers: keep all sections visible.
+        sections.forEach(section => {
+            section.classList.add('visible');
+        });
+    }
 
 
     // --- Navigation Highlighting on Scroll ---
     const highlightNav = () => {
+        if (!header) return;
         let currentSectionId = 'home'; // Default to home
         const headerHeight = header.offsetHeight; // Get header height for offset
 
@@ -110,28 +159,40 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Check saved preference first, otherwise follow browser/OS setting
-    if (savedTheme) {
-        applyTheme(savedTheme === 'dark');
-    } else {
-        applyTheme(prefersDark.matches);
+    if (themeToggle) {
+        if (savedTheme) {
+            applyTheme(savedTheme === 'dark');
+        } else {
+            applyTheme(prefersDark.matches);
+        }
+
+        // Listen for browser/OS theme changes (only if user hasn't set a preference)
+        if (typeof prefersDark.addEventListener === 'function') {
+            prefersDark.addEventListener('change', (e) => {
+                if (!localStorage.getItem('theme')) {
+                    applyTheme(e.matches);
+                }
+            });
+        } else if (typeof prefersDark.addListener === 'function') {
+            prefersDark.addListener((e) => {
+                if (!localStorage.getItem('theme')) {
+                    applyTheme(e.matches);
+                }
+            });
+        }
+
+        // Toggle theme on checkbox change
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark'); // Save preference
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light'); // Save preference
+            }
+        });
     }
 
-    // Listen for browser/OS theme changes (only if user hasn't set a preference)
-    prefersDark.addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-            applyTheme(e.matches);
-        }
-    });
-
-    // Toggle theme on checkbox change
-    themeToggle.addEventListener('change', () => {
-        if (themeToggle.checked) {
-            body.classList.add('dark-mode');
-            localStorage.setItem('theme', 'dark'); // Save preference
-        } else {
-            body.classList.remove('dark-mode');
-            localStorage.setItem('theme', 'light'); // Save preference
-        }
-    });
+    syncNavAccessibilityState();
 
 });

@@ -134,16 +134,21 @@ img {
     max-width: 1100px; /* Limit content width */
     margin: 0 auto; /* Center content */
     overflow: hidden; /* Clear floats and contain margins */
-    opacity: 0; /* Start hidden for fade-in */
-    transform: translateY(30px); /* Start slightly lower */
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    opacity: 1;
+    transform: none;
     min-height: 80vh; /* Ensure sections have some height */
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.section.visible {
+.js-ready .section.reveal-on-scroll {
+    opacity: 0; /* Start hidden for fade-in when JS enhancement is active */
+    transform: translateY(30px); /* Start slightly lower */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.js-ready .section.reveal-on-scroll.visible {
     opacity: 1;
     transform: translateY(0);
 }
@@ -219,6 +224,9 @@ nav {
 .burger {
     display: none; /* Hidden by default */
     cursor: pointer;
+    border: 0;
+    background: transparent;
+    padding: 0;
 }
 
 .burger div {
@@ -227,6 +235,12 @@ nav {
     background-color: #555;
     margin: 5px;
     transition: all 0.3s ease;
+}
+
+.burger:focus-visible {
+    outline: 3px solid #A0D8EF;
+    outline-offset: 4px;
+    border-radius: 4px;
 }
 
 /* --- Hero Section (#home) --- */
@@ -944,7 +958,20 @@ body.dark-mode .social-links a:hover {
 }
 
 .theme-switch input {
-    display:none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.theme-switch input:focus-visible + .slider {
+    outline: 3px solid #A0D8EF;
+    outline-offset: 4px;
 }
 
 .slider {
@@ -982,4 +1009,8 @@ input:checked + .slider::before {
 /* Change background color of the switch */
 body.dark-mode .theme-switch {
     background-color: #555; /* Darker background for switch */
+}
+
+body.dark-mode .theme-switch input:focus-visible + .slider {
+    outline-color: #ffcdd2;
 }
