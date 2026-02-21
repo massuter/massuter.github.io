@@ -167,7 +167,7 @@ img {
 
 nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
@@ -191,6 +191,7 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin-left: auto;
 }
 
 .nav-links li {
@@ -661,7 +662,9 @@ nav {
     html { font-size: 90%; } /* Slightly smaller base font */
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; margin-bottom: 2rem;}
-    nav { padding: 0 1rem; } /* Less padding on mobile nav */
+    nav { padding: 0 1rem; width: 100%; justify-content: flex-end; } /* Less padding on mobile nav */
+
+    .logo { margin-right: auto; } /* Push logo to the left */
 
     .nav-links {
         position: fixed;
@@ -703,8 +706,14 @@ nav {
     }
 
 
+    .theme-switch-wrapper {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
     .burger {
         display: block; /* Show burger */
+        margin-left: 1.2rem;
     }
 
     /* Burger Animation */
@@ -965,7 +974,7 @@ body.dark-mode .social-links a:hover {
 .theme-switch-wrapper {
     display: flex;
     align-items: center;
-    margin-left: 1rem; /* Space from nav links */
+    margin-left: 2rem; /* Space from nav links */
 }
 
 .theme-switch {
