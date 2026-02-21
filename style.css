@@ -727,7 +727,29 @@ nav {
     .worlds-grid { grid-template-columns: 1fr; } /* Stack world cards */
     .links-list { gap: 1rem; }
     .link-button { padding: 0.7rem 1.2rem; font-size: 0.9rem; }
-    .link-button.i { margin-right: 0.5rem; }
+    .link-button i { margin-right: 0.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .js-ready .section.reveal-on-scroll,
+    .js-ready .section.reveal-on-scroll.visible {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .button,
+    .cta-button,
+    .link-button,
+    .world-card,
+    .nav-links,
+    .burger div {
+        transition: none !important;
+    }
 }
 
 /* --- Dark Mode Styles --- */
