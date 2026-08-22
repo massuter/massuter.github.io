@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('.section');
     const currentYearSpan = document.getElementById('current-year');
 
+    const syncHeaderState = () => {
+        if (header) header.classList.toggle('is-scrolled', window.scrollY > 16);
+    };
+
     // --- Mobile Navigation (Burger Menu) ---
     const syncNavAccessibilityState = () => {
         if (!navLinksContainer || !burger) return;
@@ -123,14 +127,21 @@ document.addEventListener('DOMContentLoaded', () => {
             // Check if the link's href matches the current section ID
             if (link.getAttribute('href') === `#${currentSectionId}`) {
                 link.classList.add('active');
+                link.setAttribute('aria-current', 'location');
+            } else {
+                link.removeAttribute('aria-current');
             }
         });
     };
 
     // Add scroll listener (consider debouncing/throttling for performance if needed)
-    window.addEventListener('scroll', highlightNav);
+    window.addEventListener('scroll', () => {
+        highlightNav();
+        syncHeaderState();
+    }, { passive: true });
     // Initial call to set active link on page load
     highlightNav();
+    syncHeaderState();
 
 
     // --- Dynamic Copyright Year ---
@@ -152,9 +163,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isDark) {
             body.classList.add('dark-mode');
             themeToggle.checked = true;
+            themeToggle.setAttribute('aria-label', 'ライトモードに切り替える');
         } else {
             body.classList.remove('dark-mode');
             themeToggle.checked = false;
+            themeToggle.setAttribute('aria-label', 'ダークモードに切り替える');
         }
     };
 
@@ -183,13 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Toggle theme on checkbox change
         themeToggle.addEventListener('change', () => {
-            if (themeToggle.checked) {
-                body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark'); // Save preference
-            } else {
-                body.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light'); // Save preference
-            }
+            applyTheme(themeToggle.checked);
+            localStorage.setItem('theme', themeToggle.checked ? 'dark' : 'light');
         });
     }
 

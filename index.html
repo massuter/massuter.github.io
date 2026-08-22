@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#10162f">
     <title>まっすたー Official Website</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700&family=Noto+Sans+JP:wght@400&family=Yusei+Magic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,500,1,0" rel="stylesheet">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
     <!-- Font Awesome for Icons (Optional, but useful for links) -->
@@ -30,6 +32,8 @@
 </head>
 <body>
 
+    <a class="skip-link" href="#main-content">本文へ移動</a>
+
     <header id="header">
         <nav>
             <div class="logo">
@@ -48,7 +52,10 @@
             <div class="theme-switch-wrapper">
                 <label class="theme-switch" for="checkbox">
                     <input type="checkbox" id="checkbox" aria-label="ダークモード切り替え" />
-                    <span class="slider"></span>
+                    <span class="slider" aria-hidden="true">
+                        <span class="material-symbols-rounded theme-icon theme-icon-sun">light_mode</span>
+                        <span class="material-symbols-rounded theme-icon theme-icon-moon">dark_mode</span>
+                    </span>
                 </label>
             </div>
             <!-- End Theme Switch -->
@@ -65,24 +72,33 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main-content">
         <!-- 1. Home (Hero Section) -->
         <section id="home" class="section hero">
             <div class="hero-content">
-                <img src="images/avatar.png" alt="まっすたー アバター" class="hero-avatar">
-                <h1>VRChatを最高に楽しむ配信！参加型！！</h1>
-                <p>VRChatで毎日わいわい雑談配信中！気軽に遊びに来てね！</p>
-                <a href="https://twitch.tv/massuter" target="_blank" rel="noopener noreferrer" class="cta-button">
-                    <i class="fab fa-twitch"></i> Twitchで配信をみる！
-                </a>
-            </div>
-            <div class="hero-decoration">
-                <!-- Add cute decorations here later with CSS -->
+                <div class="hero-copy">
+                    <p class="eyebrow">EVERY NIGHT · 21:00–22:00 JST</p>
+                    <h1><span>まっすたー</span></h1>
+                    <p class="hero-lead">毎日わいわい雑談配信中。初めましての人も、いつものみんなも、気軽に遊びに来てね！</p>
+                    <div class="hero-actions">
+                        <a href="https://twitch.tv/massuter" target="_blank" rel="noopener noreferrer" class="cta-button">
+                            <i class="fab fa-twitch" aria-hidden="true"></i> Twitchで配信を見る
+                        </a>
+                        <a href="#worlds" class="text-link">作ったワールドを見る <span aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+                <div class="hero-portrait" aria-hidden="true">
+                    <span class="orbit orbit-one"></span>
+                    <span class="orbit orbit-two"></span>
+                    <img src="images/avatar.png" alt="" class="hero-avatar">
+                    <p class="portrait-label"><span></span> MASSUTER IN VRCHAT</p>
+                </div>
             </div>
         </section>
 
         <!-- 2. About (Self Introduction) -->
         <section id="about" class="section">
+            <p class="section-kicker">ABOUT</p>
             <h2>まっすたーって？</h2>
             <div class="about-content">
                 <img src="images/avatar_profile.jpeg" alt="まっすたー プロフィール画像" class="about-avatar">
@@ -103,6 +119,7 @@
 
         <!-- 3. Stream (Stream Information) -->
         <section id="stream" class="section">
+            <p class="section-kicker">LIVE & ARCHIVE</p>
             <h2>配信はこちら！</h2>
             <div class="stream-content">
                 <div class="twitch-embed">
@@ -120,9 +137,9 @@
                     <p>毎日 21:00 ～ 22:00 配信中！</p>
                     <!-- Google Calendar embed removed -->
                 </div>
-                <div class="youtube-link">
-                    <a href="https://www.youtube.com/@まっすたーm" target="_blank" rel="noopener noreferrer" class="cta-button youtube-button">
-                        <i class="fab fa-youtube"></i> 配信アーカイブはこちら
+                <div class="archive-link">
+                    <a href="https://www.twitch.tv/massuter/videos?filter=archives" target="_blank" rel="noopener noreferrer" class="cta-button twitch-archive-button">
+                        <i class="fab fa-twitch" aria-hidden="true"></i> 過去の配信を見る
                     </a>
                 </div>
             </div>
@@ -130,6 +147,7 @@
 
         <!-- 4. Worlds (Created Worlds Introduction) -->
         <section id="worlds" class="section">
+            <p class="section-kicker">WORLDS</p>
             <h2>まっすたーの作ったワールド</h2>
             <div class="worlds-grid">
                 <div class="world-card">
@@ -178,6 +196,7 @@
 
         <!-- 5. News (Announcements) -->
         <section id="news" class="section">
+            <p class="section-kicker">NEWS</p>
             <h2>お知らせ</h2>
             <ul class="news-list">
 				<li><span class="news-date">2025.11.26</span> - 新しいワールド、「週末の隠れ家」公開しました！</li>
@@ -188,21 +207,19 @@
                 <li><span class="news-date">2025.03.31</span> - 新しいワールド、「星灯りの誓い -Starlight Vows」公開しました！</li>
                 <!-- Add more news items here -->
             </ul>
-            <a href="https://note.com/massuter" target="_blank" rel="noopener noreferrer" class="button">
-                <i class="fas fa-book-open"></i> もっとお知らせを見る (note)
-            </a>
         </section>
 
         <!-- 6. Links (Link Collection) -->
         <section id="links" class="section">
+            <p class="section-kicker">FIND ME</p>
             <h2>いろいろなリンク</h2>
             <ul class="links-list">
                 <li><a href="https://twitch.tv/massuter" target="_blank" rel="noopener noreferrer" class="link-button twitch"><i class="fab fa-twitch"></i> Twitch</a></li>
                 <li><a href="https://x.com/Massuter" target="_blank" rel="noopener noreferrer" class="link-button twitter"><i class="fab fa-twitter"></i> X</a></li>
                 <li><a href="https://www.youtube.com/@まっすたーm" target="_blank" rel="noopener noreferrer" class="link-button youtube"><i class="fab fa-youtube"></i> YouTube</a></li>
                 <li><a href="https://vrchat.com/home/user/usr_aa99031d-1df4-4092-bde3-aef5af29596d" target="_blank" rel="noopener noreferrer" class="link-button vrchat"><i class="fas fa-vr-cardboard"></i> VRChat Profile</a></li>
-                <li><a href="https://note.com/massuter" target="_blank" rel="noopener noreferrer" class="link-button note"><i class="fas fa-book"></i> note</a></li>
-                <li><a href="https://booth.pm/wish_list_names/dXqTjQjv" target="_blank" rel="noopener noreferrer" class="link-button booth"><i class="fas fa-gifts"></i> ほしい物リスト (BOOTH)</a></li>
+                <li><a href="https://note.com/massuter" target="_blank" rel="noopener noreferrer" class="link-button note"><span class="link-icon link-icon-note" aria-hidden="true"><img src="logo/note.svg" alt=""></span> note</a></li>
+                <li><a href="https://booth.pm/wish_list_names/dXqTjQjv" target="_blank" rel="noopener noreferrer" class="link-button booth"><span class="link-icon" aria-hidden="true"><img src="logo/booth.svg" alt=""></span> ほしい物リスト (BOOTH)</a></li>
                 <li><a href="https://www.amazon.jp/hz/wishlist/ls/31UKPAJCR2UTN?ref_=wl_share" target="_blank" rel="noopener noreferrer" class="link-button amazon"><i class="fab fa-amazon"></i> ほしい物リスト (Amazon)</a></li>
                  <!-- Add Twitter/Discord later if links provided -->
             </ul>
@@ -210,6 +227,7 @@
 
         <!-- 7. Contact (Contact Information) -->
         <section id="contact" class="section">
+            <p class="section-kicker">CONTACT</p>
             <h2>メッセージはこちらへ</h2>
             <div class="google-form-embed">
 				<p>感想や連絡などはこちらのフォームから送ってね！</p>
